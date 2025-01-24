@@ -1,6 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { AnimatePresence } from 'framer-motion';
+import { CartProvider } from './context/CartContext'; 
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import BrowseProducts from './pages/BrowseProducts';
@@ -20,28 +22,42 @@ import RetailerDetails from './pages/retailer/RetailerDetails';
 import RetailerLogin from './pages/retailer/RetailerLogin';
 import RetailerRegister from './pages/retailer/RetailerRegister';
 import Dashboard from './pages/Dashboard';
+import UserLogin from './pages/UserLogin';
+import UserRegister from './pages/UserRegister';
 
 function App() {
-  const isRetailer = true
+  const isRetailer = true; 
+  const location = useLocation(); 
+  const role = localStorage.getItem("role");
+  const noNavbarRoutes = [
+    '/user-login',
+    '/user-register', 
+    '/retailer-login',
+    '/retailer-register',
+  ];
+
+  const shouldShowNavbar = !noNavbarRoutes.includes(location.pathname);
 
   return (
-    <Router>
-      <AnimatePresence mode="wait">
-        {isRetailer?(
+    <AnimatePresence mode="wait">
+      {role === "retailer" ? (
+        <Routes>
+          <Route path="/retailer-login" element={<RetailerLogin />} />
+          <Route path="/retailer-register" element={<RetailerRegister />} />
+          <Route path="/retailer-details" element={<RetailerDetails />} />
+          <Route path="/" element={<RetailerDashboard />}>
+            <Route index element={<Navigate to="/products" replace />} />
+            <Route path="products" element={<Products />} />
+            <Route path="orders" element={<Orders />} />
+          </Route>
+        </Routes>
+      ) : (
+        <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50">
+          {shouldShowNavbar && <Navbar />}
+
           <Routes>
-            <Route path="/retailer-login" element={<RetailerLogin />} />
-            <Route path="/retailer-register" element={<RetailerRegister />} />
-            <Route path="/retailer-details" element={<RetailerDetails />} />
-            <Route path="/" element={<RetailerDashboard />}>
-              <Route index element={<Navigate to="/products" replace />} />
-              <Route path="products" element={<Products />} />
-              <Route path="orders" element={<Orders />} />
-            </Route>
-          </Routes>
-        ): (<div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50">
-          <Navbar />
-          <Routes>
-        
+            <Route path="/user-login" element={<UserLogin />} />
+            <Route path="/user-register" element={<UserRegister />} /> 
             <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/products" element={<BrowseProducts />} />
@@ -55,10 +71,11 @@ function App() {
             <Route path="/bootcamps" element={<Bootcamps />} />
             <Route path="/meetup" element={<MeetupEvents />} />
           </Routes>
-        </div>)}
-      </AnimatePresence>
-    </Router>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }
+
 
 export default App;

@@ -230,7 +230,7 @@ export default function RetailerDetails() {
                   id="yearsInBusiness"
                   required
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500"
-                  value={formData.years_in_Business}
+                  value={formData.years_in_business}
                   onChange={(e) => setFormData({ ...formData, years_in_business: e.target.value })}
                 />
               </div>
@@ -243,8 +243,8 @@ export default function RetailerDetails() {
                   type="url"
                   id="websiteUrl"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500"
-                  value={formData.websiteUrl}
-                  onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                  value={formData.website_url}
+                  onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
                 />
               </div>
             </div>

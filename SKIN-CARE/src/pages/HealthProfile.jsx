@@ -21,7 +21,7 @@ const HealthProfile = () => {
     medications: '',
     additionalNotes: '',
   });
-  const [isEditing, setIsEditing] = useState(false); // Toggle edit mode
+  const [isEditing, setIsEditing] = useState(false); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;

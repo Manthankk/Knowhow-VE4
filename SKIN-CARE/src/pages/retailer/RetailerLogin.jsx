@@ -13,6 +13,7 @@ const RetailerLogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
+    localStorage.setItem("role","retailer")
   };
 
   return (

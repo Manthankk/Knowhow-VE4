@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Leaf, Users, Camera, Star, Shield, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-// Animation Variants
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -38,7 +37,6 @@ const LandingPage = () => {
       animate={{ opacity: 1 }}
       className="min-h-screen font-poppins bg-gray-50"
     >
-      {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-teal-500 to-green-700 h-[800px] overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img 
