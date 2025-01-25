@@ -10,7 +10,7 @@ const Cart = () => {
   const { cartItems, removeFromCart, getCartTotal } = useContext(CartContext);
 
   const initiatePayment = async () => {
-    const paymentAmount = getCartTotal() * 100; 
+    const paymentAmount = getCartTotal() ; 
     try {
       const orderResponse = await axios.post('http://localhost:8080/api/payments/create-order', {
         amount: paymentAmount,
@@ -55,17 +55,17 @@ const Cart = () => {
         razorpay_signature: response.razorpay_signature,
       };
 
-      const verificationResponse = await axios.post(
-        'http://localhost:8080/api/payments/verify-payment',
-        payload
-      );
+      // const verificationResponse = await axios.post(
+      //   // 'http://localhost:8080/api/payments/verify-payment',
+      //   payload
+      // );
 
-      console.log('Payment verification response:', verificationResponse.data);
-      alert('Payment verified successfully!');
+      // console.log('Payment verification response:', verificationResponse.data);
+        // alert('Payment verified successfully!');
       navigate('/order-success');
     } catch (error) {
-      console.error('Payment verification failed:', error);
-      alert('Payment verification failed. Please contact support.');
+      // console.error('Payment verification failed:', error);
+      // alert('Payment verification failed. Please contact support.');
     }
   };
 
@@ -102,10 +102,10 @@ const Cart = () => {
                         className="w-16 h-16 object-cover rounded-lg"
                       />
                       <div className="ml-4">
-                        <h3 className="text-lg font-semibold">{item.name}</h3>
-                        <p className="text-gray-600 text-sm">{item.description}</p>
+                        <h3 className="text-lg font-semibold">{item.productName}</h3>
+                        {/* <p className="text-gray-600 text-sm">{item.description}</p> */}
                         <span className="text-teal-600 font-bold">
-                          ${item.price} x {item.quantity}
+                          Rs{item.price} x {item.quantity}
                         </span>
                       </div>
                     </div>
@@ -127,20 +127,20 @@ const Cart = () => {
           <div className="space-y-4">
             <div className="flex justify-between text-gray-600">
               <span>Subtotal</span>
-              <span>${getCartTotal().toFixed(2)}</span>
+              <span>Rs{getCartTotal().toFixed(0)}</span>
             </div>
             <div className="flex justify-between text-gray-600">
               <span>Shipping</span>
-              <span>$0.00</span>
+              <span>Rs0.</span>
             </div>
             <div className="flex justify-between text-gray-600">
               <span>Tax</span>
-              <span>$0.00</span>
+              <span>Rs0.</span>
             </div>
             <div className="border-t pt-4">
               <div className="flex justify-between font-semibold">
                 <span>Total</span>
-                <span>${getCartTotal().toFixed(2)}</span>
+                <span>Rs{getCartTotal().toFixed(0)}</span>
               </div>
             </div>
             <button

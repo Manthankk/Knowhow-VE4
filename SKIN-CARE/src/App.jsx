@@ -24,6 +24,7 @@ import RetailerRegister from './pages/retailer/RetailerRegister';
 import Dashboard from './pages/Dashboard';
 import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
+import ProductPage from './pages/ProductPage';
 
 function App() {
   const isRetailer = true; 
@@ -61,6 +62,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/products" element={<BrowseProducts />} />
+            <Route path="/products/:id" element={<ProductPage/>}/>
             <Route path="/community" element={<CommunityHub />} />
             <Route path="/prediction" element={<Prediction />} />
             <Route path="/cart" element={<Cart />} />

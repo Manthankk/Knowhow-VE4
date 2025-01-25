@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,28 +6,36 @@ export default function RetailerDetails() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    zip_code: '',
-    shop_name: '',
-    business_name: '',
-    business_type: '',
-    registration_number: '',
-    taxId: '',
-    years_in_business: '',
-    website_url: '',
+  "vendor_id": "",
+  "email": "",
+  "password": "",
+  "first_name": "",
+  "last_name": "",
+  "phone": "",
+  "address": "",
+  "city": "",
+  "state": "",
+  "zip_code": "",
+  "business_name": "",
+  "business_type": "",
+  "registration_number": "",
+  "taxId": "",
+  "years_in_business": "",
+  "website_url": ""
   });
 
-  const handleDetails = (e) => {
+  const handleDetails = async(e) => {
     e.preventDefault();
     if (step === 1) {
       setStep(2);
     } else {
       console.log('All details:', formData);
+      try {
+        const response = await axios.post("http://localhost:8081/vendors",formData) 
+        console.log(response.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
 
@@ -47,7 +56,7 @@ export default function RetailerDetails() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
                     First Name
                   </label>
                   <input
@@ -55,8 +64,8 @@ export default function RetailerDetails() {
                     id="firstname"
                     required
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500"
-                    value={formData.firstname}
-                    onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
+                    value={formData.first_name}
+                    onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
                   />
                 </div>
                 <div>
@@ -72,6 +81,33 @@ export default function RetailerDetails() {
                     onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
                   />
                 </div>
+                <div>
+                  <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    id="email"
+                    required
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    Password
+                  </label>
+                  <input
+                    type="text"
+                    id="firstname"
+                    required
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  />
+                </div>
+                
               </div>
 
               <div>
@@ -130,7 +166,7 @@ export default function RetailerDetails() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="zip_code" className="block text-sm font-medium text-gray-700">
                     ZIP Code
                   </label>
                   <input

@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 import { ArrowRight, Edit, Save } from 'lucide-react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const HealthProfile = () => {
   const [step, setStep] = useState(1); 
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    phone: '',
-    age: '',
-    dob: '',
-    gender: '',
-    bloodGroup: '',
-    height: '',
-    weight: '',
-    lifestyle: '',
-    skinColor: '',
-    physicalDisability: '',
-    existingConditions: '',
-    allergies: '',
-    medications: '',
-    additionalNotes: '',
+    first_name: '',     
+    last_name: '',     
+    email: 'sdfsadf@',
+    phone: '',     
+    age: '',     
+    dob: '',     
+    gender: '',     
+    blood_group: 'o+',     
+    height: '',     
+    weight: '',     
+    skin_color: 'medium',     
+    physically_abled: '',    
+    lifestyle: '',     
+    address: '',     
+    password: '',     
+    city: '',                
+    state: '',               
+    zip_code: '',            
   });
+  
   const [isEditing, setIsEditing] = useState(false); 
 
   const handleChange = (e) => {
@@ -31,8 +36,8 @@ const HealthProfile = () => {
   const handleNext = () => {
     if (step === 1) {
       if (
-        !formData.firstname ||
-        !formData.lastname ||
+        !formData.first_name ||
+        !formData.last_name ||
         !formData.phone ||
         !formData.age ||
         !formData.dob ||
@@ -40,7 +45,7 @@ const HealthProfile = () => {
         !formData.height ||
         !formData.weight ||
         !formData.lifestyle ||
-        !formData.skinColor ||
+        !formData.skin_color ||
         !formData.physicalDisability
       ) {
         alert('Please fill out all required fields.');
@@ -50,11 +55,17 @@ const HealthProfile = () => {
     setStep(step + 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
-    setIsEditing(false); 
-    alert('Profile saved successfully!');
+    try {
+      const response = await axios.post("http://localhost:8081/customers", formData);
+      if(response.data.success) {
+        toast.success("User successfully  registered")
+        navigate("/landing-page")
+      }
+    } catch (error) {
+      
+    }
   };
 
   const toggleEdit = () => {
@@ -85,9 +96,9 @@ const HealthProfile = () => {
                 </label>
                 <input
                   type="text"
-                  id="firstname"
-                  name="firstname"
-                  value={formData.firstname}
+                  id="first_name"
+                  name="first_name"
+                  value={formData.first_name}
                   onChange={handleChange}
                   required
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
@@ -99,15 +110,43 @@ const HealthProfile = () => {
                 </label>
                 <input
                   type="text"
-                  id="lastname"
-                  name="lastname"
-                  value={formData.lastname}
+                  id="last_name"
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleChange}
                   required
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
                 />
               </div>
             </div>
+            <div>
+                <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                />
+              </div>
+              <div>
+                <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
+                  password
+                </label>
+                <input
+                  type="text"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                />
+              </div>
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
@@ -180,7 +219,7 @@ const HealthProfile = () => {
               <select
                 id="bloodGroup"
                 name="bloodGroup"
-                value={formData.bloodGroup}
+                value={formData.blood_group}
                 onChange={handleChange}
                 required
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
@@ -253,7 +292,7 @@ const HealthProfile = () => {
               <select
                 id="skinColor"
                 name="skinColor"
-                value={formData.skinColor}
+                value={formData.skin_color}
                 onChange={handleChange}
                 required
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"

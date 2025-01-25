@@ -9,12 +9,13 @@ export default function RetailerRegister() {
     confirmPassword: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    if (formData.password === formData.confirmPassword) {
-      console.log('Register:', formData);
-      navigate('/retailer-details');
-    }
+   try {
+       const data = await axios.post("http://localhost:8081/vendors",formData)
+   } catch (error) {
+    
+   }
   };
 
   return (
