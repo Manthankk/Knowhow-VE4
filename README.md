@@ -8,7 +8,7 @@
 SKIN DISEASE ANALYSIS
 ![image](https://github.com/user-attachments/assets/b68c6f8d-6738-425a-8f01-89c34b656db4)
 PAYMENT SYSTEM
-![image](https://github.com/user-attachments/assets/086acbae-7f49-4a7e-8020-6ec246f3f69d)
+![image](https://github.com/user-attachments/assets/ef389c82-402f-405d-ac98-aefeba0d7507)
 
 
 
